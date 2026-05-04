@@ -35,7 +35,17 @@
 - ✅ Clear completed or all tasks at once
 - ✅ Your tasks always saved locally
 
+### �️ Public Information Access
+- 🌤️ **Weather Widget** - Get current weather for task planning
+- 💭 **Inspirational Quotes** - Daily motivation for productivity
+- 📍 **Location Aware** - Automatic location detection for weather
+- 🔄 **Offline Ready** - Cached data works without internet
+- ⚡ **Fast Loading** - Instant access to information
+
 ### 🌙 Themes
+- ✨ Light and dark modes
+- 🎨 Automatic theme switching based on system preference
+- 💾 Theme preference saved
 - ✨ Light and dark modes
 - 🎨 Automatic theme switching based on system preference
 - 💾 Theme preference saved
@@ -131,6 +141,16 @@
 ### Delete a Task
 1. Click the **✕** button on the task
 2. Task is removed immediately
+
+### Check Weather
+1. Click **🌤️** (weather icon) in the header
+2. Allow location access for local weather (optional)
+3. View current conditions and forecast
+
+### Get Inspiration
+1. Click **💭** (quote icon) in the header
+2. Read a random inspirational quote
+3. Perfect for motivation during task completion
 
 ### Settings
 1. Click **⚙️** (settings icon)
