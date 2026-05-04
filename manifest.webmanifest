@@ -1,0 +1,17 @@
+{
+  "name": "Star first App",
+  "short_name": "Star first",
+  "description": "An accessible todo app with offline support and theme settings.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0072ff",
+  "theme_color": "#0072ff",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+    <meta name="description" content="Star first App is an accessible todo app with offline support, persistent tasks, and theme settings.">
+    <meta name="keywords" content="todo app, task manager, productivity, PWA, offline, Star first App">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Star first App">
+    <meta property="og:description" content="An accessible todo app with offline support, task persistence, and theme settings.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0072ff">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="stylesheet"
+href="style.css">
+</head>
+
+<body>
+
+    <main class="app-container">
+
+        <section class="app-card" aria-label="Star first App">
+            <div class="header-row">
+                <div>
+                    <h1>Star first App</h1>
+                    <p class="subtitle">Your Tasks</p>
+                </div>
+                <div class="header-actions">
+                    <button id="settingsOpen" class="settings-open" aria-label="Open settings" aria-expanded="false" type="button">⚙️</button>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false" type="button">🌙</button>
+                </div>
+            </div>
+
+            <div id="settingsPanel" class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" aria-hidden="true">
+                <div class="settings-header">
+                    <div>
+                        <h2 id="settingsTitle">Star first App Settings</h2>
+                        <p class="settings-description">Customize your experience.</p>
+                    </div>
+                    <button id="settingsClose" class="settings-close" aria-label="Close settings" type="button">✕</button>
+                </div>
+
+                <div class="settings-item">
+                    <span>🌙 Theme</span>
+                    <button id="themeToggleSetting" class="settings-toggle" aria-label="Toggle theme" aria-pressed="false" type="button">🌙</button>
+                </div>
+
+                <div class="settings-item">
+                    <span>Completed tasks</span>
+                    <button id="clearCompletedBtn" class="settings-action">Clear completed</button>
+                </div>
+
+                <div class="settings-item">
+                    <span>All tasks</span>
+                    <button id="clearAllBtn" class="settings-action" type="button">Clear all</button>
+                </div>
+
+                <p class="settings-note">Settings are saved automatically and task state persists between visits.</p>
+            </div>
+
+            <form id="taskForm" class="input-group" aria-label="Add new task">
+                <label for="taskInput" class="visually-hidden">New task</label>
+                <input id="taskInput" type="text" placeholder="Add a task..." autocomplete="off" aria-describedby="taskHint">
+                <button id="addBtn" class="add-btn" type="submit" aria-label="Add task">+</button>
+            </form>
+            <p id="taskHint" class="input-hint">Press Enter or click the plus button to add a task.</p>
+
+            <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+        </div>
+
+        <footer class="app-footer">
+            <p>Enjoying Star first App? <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID" target="_blank" rel="noopener">Support the developer</a> to keep it free!</p>
+        </footer>
+        
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
