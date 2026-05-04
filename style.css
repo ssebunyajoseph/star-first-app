@@ -58,6 +58,7 @@ body.dark-theme .app-card {
 
 .theme-toggle,
 .settings-open,
+.install-btn,
 .settings-toggle,
 .settings-close,
 .settings-action {
@@ -73,6 +74,28 @@ body.dark-theme .app-card {
     align-items: center;
     justify-content: center;
     transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.install-btn {
+    width: auto;
+    min-width: auto;
+    padding: 8px 12px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.install-btn:active {
+    transform: translateY(0);
 }
 
 .settings-action {

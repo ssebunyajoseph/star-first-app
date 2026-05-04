@@ -166,6 +166,36 @@ settingsPanel.addEventListener("click", (event) => {
 setTheme(theme);
 renderTasks();
 
+// PWA Install Prompt Handler
+let deferredPrompt = null;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = "flex";
+});
+
+installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const choiceResult = await deferredPrompt.userChoice;
+    
+    if (choiceResult.outcome === "accepted") {
+        console.log("User accepted install");
+    }
+    
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+});
+
+window.addEventListener("appinstalled", () => {
+    console.log("App installed successfully");
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+});
+
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("sw.js").catch((error) => {
