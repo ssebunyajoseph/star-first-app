@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="/icon.svg"/>
+            <TileColor>#0072ff</TileColor>
+        </tile>
+        <notification>
+            <polling-uri src="https://ssebunyajoseph.github.io/star-first-app/"/>
+            <polling-uri2 src="https://ssebunyajoseph.github.io/star-first-app/"/>
+            <polling-uri3 src="https://ssebunyajoseph.github.io/star-first-app/"/>
+            <polling-uri4 src="https://ssebunyajoseph.github.io/star-first-app/"/>
+            <polling-uri5 src="https://ssebunyajoseph.github.io/star-first-app/"/>
+            <frequency>30</frequency>
+            <circleCount>1</circleCount>
+            <imageCount>1</imageCount>
+            <priority>1</priority>
+        </notification>
+    </msapplication>
+</browserconfig>

@@ -1,26 +1,30 @@
 {
-  "name": "Star first App",
+  "name": "Star first App - Free Todo & Task Manager",
   "short_name": "Star first",
-  "description": "An accessible todo app with offline support, persistent storage, dark/light themes, and works completely offline. Create, manage, and organize your tasks instantly.",
+  "description": "Star first App is a free, fast, offline-first Progressive Web App for managing your daily tasks. Create, organize, and complete tasks instantly on any device - desktop, mobile, or tablet. Works with or without internet connection.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#0072ff",
+  "dir": "ltr",
+  "lang": "en-US",
   "categories": ["productivity", "utilities"],
   "screenshots": [
     {
       "src": "icon.svg",
       "sizes": "540x720",
       "type": "image/svg+xml",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "purpose": "any"
     },
     {
       "src": "icon.svg",
       "sizes": "1280x720",
       "type": "image/svg+xml",
-      "form_factor": "wide"
+      "form_factor": "wide",
+      "purpose": "any"
     }
   ],
   "icons": [
@@ -41,17 +45,48 @@
     {
       "name": "New Task",
       "short_name": "New Task",
-      "description": "Create a new task",
+      "description": "Create a new task instantly",
       "url": "/?shortcut=new-task",
       "icons": []
     },
     {
       "name": "View Tasks",
       "short_name": "Tasks",
-      "description": "View all your tasks",
+      "description": "View all your tasks and manage them",
       "url": "/?shortcut=view-tasks",
+      "icons": []
+    },
+    {
+      "name": "Settings",
+      "short_name": "Settings",
+      "description": "Customize app theme and preferences",
+      "url": "/?shortcut=settings",
       "icons": []
     }
   ],
-  "prefer_related_applications": false
+  "share_target": {
+    "action": "/?share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+starfirst",
+      "url": "/?task=%s"
+    }
+  ],
+  "prefer_related_applications": false,
+  "screenshots_dark_mode": [
+    {
+      "src": "icon.svg",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ]
 }

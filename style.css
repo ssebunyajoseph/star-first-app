@@ -380,26 +380,72 @@ body.dark-theme .task-item {
 }
 
 .app-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #6b7280;
-    padding: 16px;
+    margin-top: 24px;
+    padding: 20px;
     border-radius: 16px;
-    background: rgba(248, 250, 252, 0.8);
+    background: rgba(248, 250, 252, 0.9);
+    border-top: 1px solid rgba(0, 114, 255, 0.1);
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
 }
 
 body.dark-theme .app-footer {
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.9);
+    border-top-color: rgba(226, 232, 240, 0.1);
     color: #94a3b8;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-primary {
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+body.dark-theme .footer-primary {
+    color: #f1f5f9;
+}
+
+.footer-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .app-footer a {
     color: #3b82f6;
     text-decoration: none;
     font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+    display: inline-block;
 }
 
 .app-footer a:hover {
-    text-decoration: underline;
+    background: rgba(59, 130, 246, 0.1);
+    color: #1d4ed8;
+    text-decoration: none;
+}
+
+body.dark-theme .app-footer a:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.footer-note {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+}
+
+body.dark-theme .footer-note {
+    color: #64748b;
 }
