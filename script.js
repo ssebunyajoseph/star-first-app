@@ -166,6 +166,129 @@ settingsPanel.addEventListener("click", (event) => {
 setTheme(theme);
 renderTasks();
 
+// Public Information Functions
+const weatherBtn = document.getElementById("weatherBtn");
+const quoteBtn = document.getElementById("quoteBtn");
+const publicInfoSection = document.getElementById("publicInfoSection");
+const weatherContent = document.getElementById("weatherContent");
+const quoteContent = document.getElementById("quoteContent");
+
+let publicInfoVisible = false;
+
+function togglePublicInfo() {
+    publicInfoVisible = !publicInfoVisible;
+    publicInfoSection.style.display = publicInfoVisible ? "flex" : "none";
+}
+
+async function fetchWeather() {
+    try {
+        weatherContent.innerHTML = '<div class="loading">Getting weather data...</div>';
+        
+        // Get user's location (fallback to a default if not available)
+        let lat = 40.7128; // Default: New York
+        let lon = -74.0060;
+        
+        if (navigator.geolocation) {
+            try {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
+                });
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
+            } catch (error) {
+                console.log("Using default location for weather");
+            }
+        }
+        
+        // Using OpenWeatherMap API (free tier)
+        const apiKey = 'bd5e378503939ddaee76f12ad7a97608'; // Free API key
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+        );
+        
+        if (!response.ok) {
+            throw new Error('Weather API request failed');
+        }
+        
+        const data = await response.json();
+        
+        const weatherHtml = `
+            <div class="weather-info">
+                <div class="weather-main">
+                    <span>${data.weather[0].description.charAt(0).toUpperCase() + data.weather[0].description.slice(1)}</span>
+                    <span>${Math.round(data.main.temp)}°C</span>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <span>Feels like:</span>
+                        <span>${Math.round(data.main.feels_like)}°C</span>
+                    </div>
+                    <div class="weather-detail">
+                        <span>Humidity:</span>
+                        <span>${data.main.humidity}%</span>
+                    </div>
+                    <div class="weather-detail">
+                        <span>Wind:</span>
+                        <span>${Math.round(data.wind.speed * 3.6)} km/h</span>
+                    </div>
+                    <div class="weather-detail">
+                        <span>Location:</span>
+                        <span>${data.name}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        weatherContent.innerHTML = weatherHtml;
+        
+    } catch (error) {
+        console.error('Weather fetch error:', error);
+        weatherContent.innerHTML = '<div class="error">Unable to load weather data. Please try again later.</div>';
+    }
+}
+
+async function fetchQuote() {
+    try {
+        quoteContent.innerHTML = '<div class="loading">Getting inspirational quote...</div>';
+        
+        // Using Quotable API (free)
+        const response = await fetch('https://api.quotable.io/random?tags=inspirational|motivational|success');
+        
+        if (!response.ok) {
+            throw new Error('Quote API request failed');
+        }
+        
+        const data = await response.json();
+        
+        const quoteHtml = `
+            <div class="quote-info">
+                <p class="quote-text">"${data.content}"</p>
+                <p class="quote-author">— ${data.author}</p>
+            </div>
+        `;
+        
+        quoteContent.innerHTML = quoteHtml;
+        
+    } catch (error) {
+        console.error('Quote fetch error:', error);
+        quoteContent.innerHTML = '<div class="error">Unable to load quote. Please try again later.</div>';
+    }
+}
+
+weatherBtn.addEventListener("click", () => {
+    togglePublicInfo();
+    if (publicInfoVisible) {
+        fetchWeather();
+    }
+});
+
+quoteBtn.addEventListener("click", () => {
+    togglePublicInfo();
+    if (publicInfoVisible) {
+        fetchQuote();
+    }
+});
+
 // PWA Install Prompt Handler
 let deferredPrompt = null;
 const installBtn = document.getElementById("installBtn");

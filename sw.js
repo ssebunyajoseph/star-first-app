@@ -35,7 +35,47 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Skip cross-origin requests
+  const url = new URL(event.request.url);
+
+  // Handle API requests (weather and quotes)
+  if (url.hostname === "api.openweathermap.org" || url.hostname === "api.quotable.io") {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) {
+          // Return cached version and update in background
+          fetch(event.request).then((response) => {
+            if (response.ok) {
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, response.clone());
+              });
+            }
+          }).catch(() => {
+            // Silently fail background update
+          });
+          return cached;
+        }
+        // No cache, fetch from network
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clonedResponse = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, clonedResponse);
+            });
+          }
+          return response;
+        }).catch(() => {
+          return new Response(JSON.stringify({ error: "Offline: API not available" }), {
+            status: 503,
+            statusText: "Service Unavailable",
+            headers: { "Content-Type": "application/json" }
+          });
+        });
+      })
+    );
+    return;
+  }
+
+  // Skip cross-origin requests (except APIs above)
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }

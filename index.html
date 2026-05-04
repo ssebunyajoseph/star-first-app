@@ -163,6 +163,8 @@
                     <p class="subtitle">Your Tasks</p>
                 </div>
                 <div class="header-actions">
+                    <button id="weatherBtn" class="weather-btn" aria-label="View weather" title="Check weather for task planning" type="button">🌤️</button>
+                    <button id="quoteBtn" class="quote-btn" aria-label="Get inspiration" title="Get a motivational quote" type="button">💭</button>
                     <button id="installBtn" class="install-btn" aria-label="Install app" title="Install this app on your device" type="button" style="display: none;">⬇️ Install</button>
                     <button id="settingsOpen" class="settings-open" aria-label="Open settings" aria-expanded="false" type="button">⚙️</button>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" aria-pressed="false" type="button">🌙</button>
@@ -204,6 +206,23 @@
             <p id="taskHint" class="input-hint">Press Enter or click the plus button to add a task.</p>
 
             <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+        </div>
+
+        <!-- Public Information Section -->
+        <div class="public-info-section" id="publicInfoSection" style="display: none;">
+            <div class="weather-widget" id="weatherWidget">
+                <h3>Weather Information</h3>
+                <div class="weather-content" id="weatherContent">
+                    <p>Click the weather button to check current conditions for task planning.</p>
+                </div>
+            </div>
+
+            <div class="quote-widget" id="quoteWidget">
+                <h3>Motivational Quote</h3>
+                <div class="quote-content" id="quoteContent">
+                    <p>Click the quote button to get inspired for your tasks.</p>
+                </div>
+            </div>
         </div>
 
         <footer class="app-footer">
