@@ -37,8 +37,11 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  // Handle API requests (weather and quotes)
-  if (url.hostname === "api.openweathermap.org" || url.hostname === "api.quotable.io") {
+  // Handle API requests (weather, quotes, search)
+  if (url.hostname === "api.openweathermap.org" || 
+      url.hostname === "api.quotable.io" ||
+      url.hostname === "api.duckduckgo.com" ||
+      url.hostname === "en.wikipedia.org") {
     event.respondWith(
       caches.match(event.request).then((cached) => {
         if (cached) {

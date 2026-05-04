@@ -41,7 +41,13 @@
 - 📍 **Location Aware** - Automatic location detection for weather
 - 🔄 **Offline Ready** - Cached data works without internet
 - ⚡ **Fast Loading** - Instant access to information
-
+### 💬 Communication & Social
+- 💬 **Real-time Chat** - Instant messaging with AI responses
+- 🎥 **Social Feed** - TikTok-style content sharing
+- 👍 **Interactive Posts** - Like, comment, and share features
+- 🔍 **Smart Search** - Google-like web and knowledge search
+- 💾 **Persistent Data** - All conversations and posts saved locally
+- 🌐 **API Integration** - Connected to external services
 ### 🌙 Themes
 - ✨ Light and dark modes
 - 🎨 Automatic theme switching based on system preference
@@ -151,6 +157,24 @@
 1. Click **💭** (quote icon) in the header
 2. Read a random inspirational quote
 3. Perfect for motivation during task completion
+
+### Start Chatting
+1. Click **💬** (chat icon) in the header
+2. Type messages in the chat box
+3. Get instant AI-powered responses
+4. All conversations are saved locally
+
+### Share on Social Feed
+1. Click **🎥** (social icon) in the header
+2. Type your post in the input field
+3. Click **📝 Post** to share
+4. Like, comment, and share other posts
+
+### Search & Research
+1. Click **🔍** (search icon) in the header
+2. Type your question or search term
+3. Get instant results from the web
+4. Access knowledge and information
 
 ### Settings
 1. Click **⚙️** (settings icon)

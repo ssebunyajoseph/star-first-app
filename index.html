@@ -163,6 +163,9 @@
                     <p class="subtitle">Your Tasks</p>
                 </div>
                 <div class="header-actions">
+                    <button id="chatBtn" class="chat-btn" aria-label="Open chat" title="Real-time messaging" type="button">💬</button>
+                    <button id="socialBtn" class="social-btn" aria-label="Social feed" title="TikTok-style content" type="button">🎥</button>
+                    <button id="searchBtn" class="search-btn" aria-label="Search & research" title="Google-like search" type="button">🔍</button>
                     <button id="weatherBtn" class="weather-btn" aria-label="View weather" title="Check weather for task planning" type="button">🌤️</button>
                     <button id="quoteBtn" class="quote-btn" aria-label="Get inspiration" title="Get a motivational quote" type="button">💭</button>
                     <button id="installBtn" class="install-btn" aria-label="Install app" title="Install this app on your device" type="button" style="display: none;">⬇️ Install</button>
@@ -221,6 +224,63 @@
                 <h3>Motivational Quote</h3>
                 <div class="quote-content" id="quoteContent">
                     <p>Click the quote button to get inspired for your tasks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communication Section -->
+        <div class="communication-section" id="communicationSection" style="display: none;">
+            <div class="chat-widget" id="chatWidget">
+                <h3>💬 Real-time Chat</h3>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message system">
+                        <span>Welcome to Star Chat! This is a demo messaging system.</span>
+                    </div>
+                </div>
+                <div class="chat-input-group">
+                    <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                    <button id="sendMessageBtn" class="send-btn" type="button">📤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Section -->
+        <div class="social-section" id="socialSection" style="display: none;">
+            <div class="social-widget" id="socialWidget">
+                <h3>🎥 Social Feed</h3>
+                <div class="social-content" id="socialContent">
+                    <div class="social-post">
+                        <div class="post-header">
+                            <span class="post-author">Star App</span>
+                            <span class="post-time">Just now</span>
+                        </div>
+                        <div class="post-content">
+                            <p>Welcome to the social feed! Share your productivity tips and connect with others.</p>
+                        </div>
+                        <div class="post-actions">
+                            <button class="like-btn">👍 0</button>
+                            <button class="comment-btn">💬 0</button>
+                            <button class="share-btn">🔗 Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-input-group">
+                    <input type="text" id="socialInput" placeholder="Share your thoughts..." autocomplete="off">
+                    <button id="postBtn" class="post-btn" type="button">📝 Post</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Section -->
+        <div class="research-section" id="researchSection" style="display: none;">
+            <div class="search-widget" id="searchWidget">
+                <h3>🔍 Search & Research</h3>
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="Search the web, ask questions..." autocomplete="off">
+                    <button id="searchBtn" class="search-submit-btn" type="button">🔍</button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <p>Try searching for: "productivity tips", "weather in [city]", or ask "What is the meaning of life?"</p>
                 </div>
             </div>
         </div>

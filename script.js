@@ -163,8 +163,16 @@ settingsPanel.addEventListener("click", (event) => {
     }
 });
 
+// Communication Event Listeners
+chatBtn.addEventListener("click", toggleCommunication);
+socialBtn.addEventListener("click", toggleSocial);
+searchBtn.addEventListener("click", toggleResearch);
+
+// Initialize features
 setTheme(theme);
 renderTasks();
+loadChatMessages();
+loadSocialPosts();
 
 // Public Information Functions
 const weatherBtn = document.getElementById("weatherBtn");
@@ -178,6 +186,57 @@ let publicInfoVisible = false;
 function togglePublicInfo() {
     publicInfoVisible = !publicInfoVisible;
     publicInfoSection.style.display = publicInfoVisible ? "flex" : "none";
+}
+
+// Communication Functions
+const chatBtn = document.getElementById("chatBtn");
+const socialBtn = document.getElementById("socialBtn");
+const searchBtn = document.getElementById("searchBtn");
+const communicationSection = document.getElementById("communicationSection");
+const socialSection = document.getElementById("socialSection");
+const researchSection = document.getElementById("researchSection");
+
+let communicationVisible = false;
+let socialVisible = false;
+let researchVisible = false;
+
+function toggleCommunication() {
+    communicationVisible = !communicationVisible;
+    communicationSection.style.display = communicationVisible ? "flex" : "none";
+    if (communicationVisible) {
+        socialVisible = false;
+        socialSection.style.display = "none";
+        researchVisible = false;
+        researchSection.style.display = "none";
+        publicInfoVisible = false;
+        publicInfoSection.style.display = "none";
+    }
+}
+
+function toggleSocial() {
+    socialVisible = !socialVisible;
+    socialSection.style.display = socialVisible ? "flex" : "none";
+    if (socialVisible) {
+        communicationVisible = false;
+        communicationSection.style.display = "none";
+        researchVisible = false;
+        researchSection.style.display = "none";
+        publicInfoVisible = false;
+        publicInfoSection.style.display = "none";
+    }
+}
+
+function toggleResearch() {
+    researchVisible = !researchVisible;
+    researchSection.style.display = researchVisible ? "flex" : "none";
+    if (researchVisible) {
+        communicationVisible = false;
+        communicationSection.style.display = "none";
+        socialVisible = false;
+        socialSection.style.display = "none";
+        publicInfoVisible = false;
+        publicInfoSection.style.display = "none";
+    }
 }
 
 async function fetchWeather() {
@@ -288,6 +347,247 @@ quoteBtn.addEventListener("click", () => {
         fetchQuote();
     }
 });
+
+// Chat Functions
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+const sendMessageBtn = document.getElementById("sendMessageBtn");
+
+function addChatMessage(message, type = "user") {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `chat-message ${type}`;
+    messageDiv.innerHTML = `<span>${message}</span>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Save chat messages to localStorage
+    saveChatMessages();
+}
+
+function saveChatMessages() {
+    const messages = Array.from(chatMessages.children).map(msg => ({
+        text: msg.textContent,
+        type: msg.classList.contains("user") ? "user" : 
+              msg.classList.contains("system") ? "system" : "other"
+    }));
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+}
+
+function loadChatMessages() {
+    const saved = JSON.parse(localStorage.getItem("chatMessages")) || [];
+    saved.forEach(msg => {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `chat-message ${msg.type}`;
+        messageDiv.innerHTML = `<span>${msg.text}</span>`;
+        chatMessages.appendChild(messageDiv);
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+    
+    addChatMessage(message, "user");
+    
+    // Simulate AI response (in a real app, this would connect to a backend)
+    setTimeout(() => {
+        const responses = [
+            "That's interesting! Tell me more.",
+            "I understand. How can I help you with that?",
+            "Great point! Have you considered...",
+            "Thanks for sharing that with me.",
+            "I'm here to help. What else is on your mind?",
+            "That sounds important. Let's break it down.",
+            "I see. What's your next step?",
+            "Good thinking! Keep going."
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addChatMessage(randomResponse, "system");
+    }, 1000 + Math.random() * 2000);
+    
+    chatInput.value = "";
+}
+
+chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+});
+
+sendMessageBtn.addEventListener("click", sendMessage);
+
+// Social Functions
+const socialContent = document.getElementById("socialContent");
+const socialInput = document.getElementById("socialInput");
+const postBtn = document.getElementById("postBtn");
+
+function createPost(content, author = "You", time = "Just now") {
+    const postDiv = document.createElement("div");
+    postDiv.className = "social-post";
+    postDiv.innerHTML = `
+        <div class="post-header">
+            <span class="post-author">${author}</span>
+            <span class="post-time">${time}</span>
+        </div>
+        <div class="post-content">
+            <p>${content}</p>
+        </div>
+        <div class="post-actions">
+            <button class="like-btn">👍 0</button>
+            <button class="comment-btn">💬 0</button>
+            <button class="share-btn">🔗 Share</button>
+        </div>
+    `;
+    
+    // Add event listeners for post actions
+    const likeBtn = postDiv.querySelector(".like-btn");
+    const commentBtn = postDiv.querySelector(".comment-btn");
+    const shareBtn = postDiv.querySelector(".share-btn");
+    
+    likeBtn.addEventListener("click", () => {
+        const currentLikes = parseInt(likeBtn.textContent.split(" ")[1]);
+        likeBtn.textContent = `👍 ${currentLikes + 1}`;
+        likeBtn.style.color = "#3b82f6";
+    });
+    
+    commentBtn.addEventListener("click", () => {
+        const currentComments = parseInt(commentBtn.textContent.split(" ")[1]);
+        commentBtn.textContent = `💬 ${currentComments + 1}`;
+    });
+    
+    shareBtn.addEventListener("click", () => {
+        navigator.share({
+            title: "Star App Post",
+            text: content,
+            url: window.location.href
+        }).catch(() => {
+            // Fallback for browsers that don't support Web Share API
+            navigator.clipboard.writeText(`${content} - ${window.location.href}`);
+            alert("Link copied to clipboard!");
+        });
+    });
+    
+    socialContent.insertBefore(postDiv, socialContent.firstChild);
+    saveSocialPosts();
+}
+
+function saveSocialPosts() {
+    const posts = Array.from(socialContent.children).map(post => ({
+        author: post.querySelector(".post-author").textContent,
+        time: post.querySelector(".post-time").textContent,
+        content: post.querySelector(".post-content p").textContent,
+        likes: parseInt(post.querySelector(".like-btn").textContent.split(" ")[1]),
+        comments: parseInt(post.querySelector(".comment-btn").textContent.split(" ")[1])
+    }));
+    localStorage.setItem("socialPosts", JSON.stringify(posts));
+}
+
+function loadSocialPosts() {
+    const saved = JSON.parse(localStorage.getItem("socialPosts")) || [];
+    saved.forEach(post => {
+        createPost(post.content, post.author, post.time);
+        // Restore likes and comments
+        const postElement = socialContent.firstChild;
+        postElement.querySelector(".like-btn").textContent = `👍 ${post.likes}`;
+        postElement.querySelector(".comment-btn").textContent = `💬 ${post.comments}`;
+    });
+}
+
+function createSocialPost() {
+    const content = socialInput.value.trim();
+    if (!content) return;
+    
+    createPost(content);
+    socialInput.value = "";
+}
+
+socialInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        createSocialPost();
+    }
+});
+
+postBtn.addEventListener("click", createSocialPost);
+
+// Search Functions
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const searchResults = document.getElementById("searchResults");
+
+async function performSearch(query) {
+    searchResults.innerHTML = '<div class="loading">Searching...</div>';
+    
+    try {
+        // Use DuckDuckGo Instant Answer API for general knowledge
+        const ddgResponse = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`);
+        const ddgData = await ddgResponse.json();
+        
+        let resultsHtml = "";
+        
+        if (ddgData.AbstractText) {
+            resultsHtml += `
+                <div class="search-result-item">
+                    <a href="${ddgData.AbstractURL || '#'}" class="search-result-title" target="_blank">${ddgData.Heading || query}</a>
+                    <p class="search-result-snippet">${ddgData.AbstractText}</p>
+                </div>
+            `;
+        }
+        
+        // Add related topics if available
+        if (ddgData.RelatedTopics && ddgData.RelatedTopics.length > 0) {
+            ddgData.RelatedTopics.slice(0, 3).forEach(topic => {
+                if (topic.Text && topic.FirstURL) {
+                    resultsHtml += `
+                        <div class="search-result-item">
+                            <a href="${topic.FirstURL}" class="search-result-title" target="_blank">${topic.Text.split(' - ')[0]}</a>
+                            <p class="search-result-snippet">${topic.Text}</p>
+                        </div>
+                    `;
+                }
+            });
+        }
+        
+        // If no results from DDG, try Wikipedia API
+        if (!resultsHtml) {
+            const wikiResponse = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
+            if (wikiResponse.ok) {
+                const wikiData = await wikiResponse.json();
+                resultsHtml = `
+                    <div class="search-result-item">
+                        <a href="${wikiData.content_urls?.desktop?.page || '#'}" class="search-result-title" target="_blank">${wikiData.title}</a>
+                        <p class="search-result-snippet">${wikiData.extract}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        if (!resultsHtml) {
+            resultsHtml = `<p>No results found for "${query}". Try different keywords or check your spelling.</p>`;
+        }
+        
+        searchResults.innerHTML = resultsHtml;
+        
+    } catch (error) {
+        console.error('Search error:', error);
+        searchResults.innerHTML = '<div class="error">Unable to perform search. Please check your internet connection and try again.</div>';
+    }
+}
+
+function handleSearch() {
+    const query = searchInput.value.trim();
+    if (!query) return;
+    
+    performSearch(query);
+}
+
+searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        handleSearch();
+    }
+});
+
+searchBtn.addEventListener("click", handleSearch);
 
 // PWA Install Prompt Handler
 let deferredPrompt = null;
